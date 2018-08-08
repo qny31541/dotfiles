@@ -11,7 +11,7 @@ function man {
 }
 
 
-export PS1="\[\e[32m\]\t\[\e[m\] \[\e[35m\]\u\[\e[m\] \[\e[33m\]\w\[\e[m\]\[\e[36m\]\`__git_ps1\`\[\e[m\] $\n"
+export PS1="\n\[\e[32m\]\t\[\e[m\] \[\e[35m\]\u\[\e[m\] \[\e[33m\]\w\[\e[m\]\[\e[36m\]\`__git_ps1\`\[\e[m\] $\n"
 
-export PATH=~/mvn/apache-maven-3.5.2/bin:$PATH
+export PATH=/c/Program\ Files/Java/jdk1.8.0_172/bin:~/mvn/apache-maven-3.5.2/bin:$PATH
 
