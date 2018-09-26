@@ -28,6 +28,9 @@ alias git-log-unmerged='BRANCH=$(git rev-parse --abbrev-ref HEAD); git --no-page
 alias unixdate='xargs -I {} date -d {} +%s'
 #TODO combine git-log-unmerged | unixdate with if [ $todate -ge $cond ]; where if [ $todate -ge $cond ]; if [ $todate -ge $cond ];
 
+alias git-log-this-branch-only='git log origin/develop..'
+alias git-diff-this-branch-only='git diff origin/develop...'
+
 alias cdg='cd ~/git/; ll'
 alias cdgp='cd ~/git/powercurve; echo "cd $(pwd)"'
 alias cdgpst='cdgp; git st'
@@ -40,6 +43,8 @@ alias debug-sds='/c/powercurve/2232/clients/sds/bin/sds.exe --console suppress -
 alias diff='~/opt/colordiff/colordiff.pl -u'
 alias diff-backup-develop='diff -u <(git diff origin/develop...backup) <(git diff origin/develop...)'
 
+alias grep-aliases='alias | grep'
+
 alias errcho='>&2 echo'
 
 alias git-remote-branches-to-delete='git branch -a --merged remotes/origin/develop | grep -v "develop$" | grep -v "origin/master$" | grep -v HEAD | grep "remotes/origin/" | cut -d "/" -f 3- #| xargs -n 1 echo git push --delete origin'
@@ -48,7 +53,7 @@ alias gitk='gitk --since=2018-08-01'
 alias gitkall='gitk --since=2010-01-01 &'
 alias gitkd='gitk --all &'
 alias gitbs='git branch --sort=-committerdate -vv'
-alias git-branch-apollo='git branch | grep apollo'
+alias git-branch-apollo='git branch | grep -Po "apollo/[^ ]*"'
 alias gitfap='git fetch -n --all --prune'
 alias gitmerged='git branch --merged origin/master | grep -Pv "\*|master" | xargs -n 1 echo git branch -d'
 alias gitdnd='git diff --name-only origin/develop...'
@@ -56,7 +61,7 @@ alias gitdndc='gitdnd | wc -l'
 alias gittouched='(git diff --name-only 2>/dev/null; git diff --name-only --cached 2>/dev/null; git diff --name-only origin/develop...) 2>/dev/null'
 alias git-commit-separately='for NAME in $(git diff --name-only); do echo $NAME; git add $NAME; git commit -m "$NAME"; done'
 alias grep='grep --color'
-alias grok='git ls-files | grep'
+alias grok='(cd $(git rev-parse --show-toplevel); git ls-files) | grep'
 alias grok-apollo='cat ~/scratch/apollo/apollo-grok.txt | grep'
 alias grok-apollo-java='grok-apollo "\.java$" | grep'
 alias grok-apollo-pom='grok-apollo "pom.xml$" | grep'
@@ -161,3 +166,8 @@ diff-branches-from() {
     MERGE_BASE=origin/develop
     diff -u <(git diff $MERGE_BASE...$1) <(git diff $MERGE_BASE...$2)
 }
+
+alias untar-all='for TAR in $(ls *.tar); do mkdir $TAR.d; tar -xf $TAR -C $TAR.d; done'
+alias unzip-all='for ZIP in $(ls *.zip); do unzip -q -d $ZIP.d $ZIP; done'
+
+alias file-all-dirs='for DIR in $(ls -d *); do cd $DIR && (find . -type f -print0 | xargs -0 file >> ../$DIR.file) && cd ..; done'
